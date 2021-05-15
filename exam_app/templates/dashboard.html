@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-success">Hello, {{user.name}}!</h1>
+
+<h4>Your Wish List:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Added by</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for wishlist in user.wishlists.all %}
+        <tr>
+            <th><a href="/wish_items/{{wishlist.id}}">{{wishlist.item}}</a></th>
+            <td>{{wishlist.user.name}}</td>
+            <td>{{wishlist.created_at}}</td>
+            {% if user.id != wishlist.user.id %}
+                <td><a href="/remove/{{wishlist.id}}">Remove from my Wishlist</a></td>
+            {% else %}
+            <td><a href="/delete/{{wishlist.id}}">Delete</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<h4>Other User's Wish List</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Item</th>
+            <th scope="col">Added by</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for wishlist in wishlists %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><a href="/wish_items/{{wishlist.id}}">{{wishlist.item}}</a></td>
+            <td>{{wishlist.user.name}}</td>
+            <td>{{wishlist.created_at}}</td>
+            <td><a href="/wish_items/{{wishlist.id}}/get">Add to my Wish List</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="/wish_items/create">Add Item</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-success">Create a New Wish List Item</h1>
+<form action="/wish_items/add" method="POST">
+{% csrf_token %}
+    <div class="form-group mt-3">
+        <label for="item">Item/Product:</label>
+        <input type="text" class="form-control" name="item">
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Add</button>
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-success">{{wishlist.item}}</h1>
+
+<h3 class="mt-5">Users who added this product/item under their wish list:</h3>
+{% for user in wishlist.wishlister.all %}
+<p>{{user.name}}</p>
+{% endfor %}
+
+{% endblock %}
